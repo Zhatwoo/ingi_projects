@@ -1,4 +1,12 @@
+"use client";
+
+import { useLanguage } from "../../lib/LanguageContext";
+import { translations } from "../../lib/translations";
+
 export default function BundleShowcase() {
+  const { lang } = useLanguage();
+  const t = translations[lang].bundleShowcase;
+
   return (
     <section
       className="py-20 md:py-section-padding px-margin-mobile md:px-margin-desktop bg-primary text-white relative overflow-hidden"
@@ -10,15 +18,14 @@ export default function BundleShowcase() {
       <div className="max-w-container-max mx-auto relative z-10">
         <div className="text-center mb-12 md:mb-20">
           <span className="text-secondary-fixed-dim font-label-caps text-[11px] font-bold uppercase tracking-widest mb-6 block">
-            Two Products, Your Choice
+            {t.tag}
           </span>
           <h2 className="text-3xl md:text-headline-xl font-headline-xl mb-6">
-            Run one. Run the other. <br className="hidden md:block" />
-            <span className="text-secondary-fixed-dim">Or run them together.</span>
+            {t.headingLine1} <br className="hidden md:block" />
+            <span className="text-secondary-fixed-dim">{t.headingEmphasis}</span>
           </h2>
           <p className="text-lg md:text-xl font-body-md opacity-70 max-w-2xl mx-auto leading-relaxed">
-            DeskHRX and LoopWork are built to work perfectly on their own —
-            and even better as one connected system.
+            {t.subheading}
           </p>
         </div>
 
@@ -30,16 +37,15 @@ export default function BundleShowcase() {
             <span className="material-symbols-outlined text-4xl text-secondary-fixed-dim mb-6">
               badge
             </span>
-            <h3 className="text-headline-md font-headline-md mb-4">DeskHRX</h3>
+            <h3 className="text-headline-md font-headline-md mb-4">{t.deskhrxTitle}</h3>
             <p className="opacity-70 leading-relaxed mb-8 flex-grow">
-              HR, payroll, and compliance for teams who just need workforce
-              management — nothing extra to configure around.
+              {t.deskhrxBody}
             </p>
             <a
               href="#pricing"
               className="font-bold text-secondary-fixed-dim hover:brightness-110 transition-all inline-flex items-center gap-2"
             >
-              Get DeskHRX solo
+              {t.getDeskhrxSolo}
               <span className="material-symbols-outlined text-lg">
                 arrow_forward
               </span>
@@ -52,7 +58,7 @@ export default function BundleShowcase() {
             className="rounded-xl p-10 flex flex-col items-center justify-center text-center bg-secondary/10 border-2 border-secondary/40 relative"
           >
             <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-secondary text-white px-5 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-[0.2em] shadow-lg">
-              Best Value
+              {t.bestValue}
             </div>
             <span
               className="material-symbols-outlined text-5xl text-secondary-fixed-dim mb-6"
@@ -61,17 +67,16 @@ export default function BundleShowcase() {
               join_inner
             </span>
             <h3 className="text-headline-md font-headline-md mb-4">
-              The Bundle
+              {t.bundleTitle}
             </h3>
             <p className="opacity-70 leading-relaxed mb-8">
-              One login, one bill, one workforce record shared across HR and
-              project delivery. Save 30% versus buying separately.
+              {t.bundleBody}
             </p>
             <a
               href="#pricing"
               className="bg-secondary text-white px-8 py-3.5 rounded-lg font-bold hover:brightness-110 transition-all shadow-lg"
             >
-              Explore the Bundle
+              {t.exploreBundle}
             </a>
           </div>
 
@@ -80,19 +85,18 @@ export default function BundleShowcase() {
             data-reveal-delay="240"
             className="glass-card !bg-white/5 !border-white/10 rounded-xl p-10 flex flex-col"
           >
-            <span className="material-symbols-outlined text-4xl text-tertiary-fixed-dim mb-6">
+            <span className="material-symbols-outlined text-4xl text-[#60a5fa] mb-6">
               sync_alt
             </span>
-            <h3 className="text-headline-md font-headline-md mb-4">LoopWork</h3>
+            <h3 className="text-headline-md font-headline-md mb-4">{t.loopworkTitle}</h3>
             <p className="opacity-70 leading-relaxed mb-8 flex-grow">
-              Kanban, Gantt, and AI workload balancing for teams who just need
-              project management — no HR module required.
+              {t.loopworkBody}
             </p>
             <a
               href="#pricing"
-              className="font-bold text-tertiary-fixed-dim hover:brightness-110 transition-all inline-flex items-center gap-2"
+              className="font-bold text-[#60a5fa] hover:brightness-110 transition-all inline-flex items-center gap-2"
             >
-              Get LoopWork solo
+              {t.getLoopworkSolo}
               <span className="material-symbols-outlined text-lg">
                 arrow_forward
               </span>

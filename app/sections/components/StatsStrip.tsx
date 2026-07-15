@@ -1,12 +1,14 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { useLanguage } from "../../lib/LanguageContext";
+import { translations } from "../../lib/translations";
 
-const stats = [
-  { value: 10000, suffix: "+", label: "Employees Managed" },
-  { value: 99.9, suffix: "%", label: "Platform Uptime" },
-  { value: 3, suffix: " hrs", label: "Saved Per Manager, Weekly" },
-  { value: 500, suffix: "+", label: "Companies Onboarded" },
+const statValues = [
+  { value: 10000, suffix: "+" },
+  { value: 99.9, suffix: "%" },
+  { value: 3, suffix: " hrs" },
+  { value: 500, suffix: "+" },
 ];
 
 function formatValue(value: number) {
@@ -59,7 +61,7 @@ function StatCounter({ value, suffix }: { value: number; suffix: string }) {
   return (
     <div
       ref={ref}
-      className="text-4xl md:text-5xl font-headline-xl font-extrabold text-primary mb-2 tabular-nums"
+      className="text-4xl md:text-5xl font-headline-xl font-extrabold text-on-surface mb-2 tabular-nums"
     >
       {formatValue(display)}
       {suffix}
@@ -68,6 +70,9 @@ function StatCounter({ value, suffix }: { value: number; suffix: string }) {
 }
 
 export default function StatsStrip() {
+  const { lang } = useLanguage();
+  const t = translations[lang].statsStrip;
+
   return (
     <section
       className="py-16 px-margin-mobile md:px-margin-desktop bg-secondary-container/20 border-y border-outline-variant/40 relative overflow-hidden"
@@ -82,9 +87,9 @@ export default function StatsStrip() {
         className="absolute -bottom-16 right-1/4 w-64 h-64 bg-[#1e3a8a]/10 rounded-full blur-[90px] pointer-events-none"
       />
       <div className="max-w-container-max mx-auto grid grid-cols-2 md:grid-cols-4 gap-gutter relative z-10">
-        {stats.map((stat) => (
+        {t.stats.map((stat, i) => (
           <div key={stat.label} className="text-center">
-            <StatCounter value={stat.value} suffix={stat.suffix} />
+            <StatCounter value={statValues[i].value} suffix={statValues[i].suffix} />
             <div className="font-label-caps text-[11px] uppercase tracking-widest text-on-surface-variant font-bold">
               {stat.label}
             </div>

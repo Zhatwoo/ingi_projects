@@ -1,48 +1,34 @@
+"use client";
+
 import Image from "next/image";
+import { useLanguage } from "../../lib/LanguageContext";
+import { translations } from "../../lib/translations";
 
-const processSteps = [
-  { label: "Process Optimization", app: "LoopWork" },
-  { label: "Real-Time Analytics", app: "DeskHRX" },
-  { label: "Team Automation", app: "Both" },
-  { label: "Time Savings", app: "DeskHRX" },
-  { label: "Unified Workflows", app: "LoopWork" },
-  { label: "Better Collaboration", app: "Both" },
-];
-
-const statCards = [
+const statIcons = [
   {
     icon: "badge",
     iconBg: "bg-[#2563eb]/10",
     iconColor: "text-[#2563eb]",
-    title: "Unified Employee Profiles",
-    description:
-      "Centralized records with contracts, attendance, performance metrics, and payroll in one real-time dashboard.",
     stat: "10K+",
-    statLabel: "Employees Managed",
   },
   {
     icon: "insights",
     iconBg: "bg-secondary/10",
     iconColor: "text-secondary",
-    title: "Real-Time Workload Analytics",
-    description:
-      "Track trends, identify bottlenecks, and make data-driven decisions across every active project instantly.",
     stat: "99.9%",
-    statLabel: "Uptime SLA",
   },
   {
     icon: "verified_user",
     iconBg: "bg-[#16a34a]/10",
     iconColor: "text-[#16a34a]",
-    title: "Enterprise Security",
-    description:
-      "Bank-grade encryption, role-based access, and comprehensive audit trails for complete data protection.",
     stat: "256-bit",
-    statLabel: "AES Encryption",
   },
 ];
 
 export default function Features() {
+  const { lang } = useLanguage();
+  const t = translations[lang].features;
+
   return (
     <section
       className="py-20 md:py-section-padding px-margin-mobile md:px-margin-desktop bg-surface-container-low relative overflow-hidden"
@@ -58,13 +44,11 @@ export default function Features() {
       />
       <div className="max-w-container-max mx-auto relative z-10">
         <div className="text-center mb-12 md:mb-24">
-          <h2 className="text-3xl md:text-headline-xl font-headline-xl mb-6 text-primary">
-            Engineered for Massive Impact
+          <h2 className="text-3xl md:text-headline-xl font-headline-xl mb-6 text-on-surface">
+            {t.heading}
           </h2>
           <p className="text-lg md:text-xl font-body-md text-on-surface-variant max-w-2xl mx-auto leading-relaxed">
-            LoopWork and DeskHRX work as one system — every feature below
-            spans both, so people, projects, and payroll never live in
-            separate tabs.
+            {t.subheading}
           </p>
         </div>
         <div className="grid md:grid-cols-12 gap-gutter">
@@ -75,16 +59,13 @@ export default function Features() {
           >
             <div className="z-10">
               <span className="text-secondary font-label-caps text-[11px] font-bold uppercase tracking-widest mb-6 block">
-                DeskHRX + LoopWork
+                {t.item1Tag}
               </span>
-              <h3 className="text-headline-md font-headline-md mb-6 text-primary">
-                From Employee Profile to First Task, Instantly
+              <h3 className="text-headline-md font-headline-md mb-6 text-on-surface">
+                {t.item1Title}
               </h3>
               <p className="text-body-md text-on-surface-variant max-w-md leading-relaxed">
-                DeskHRX onboards a new hire with automated contracts and
-                direct-deposit payroll — LoopWork picks it up immediately,
-                auto-assigning their first project tasks and Kanban board
-                access. Zero manual handoff.
+                {t.item1Body}
               </p>
             </div>
             <div className="mt-16 transform translate-y-8 group-hover:translate-y-4 transition-transform duration-500">
@@ -97,7 +78,7 @@ export default function Features() {
               />
             </div>
             <div className="absolute top-0 right-0 p-10 opacity-[0.03]">
-              <span className="material-symbols-outlined text-[160px] text-primary">
+              <span className="material-symbols-outlined text-[160px] text-on-surface">
                 badge
               </span>
             </div>
@@ -110,10 +91,10 @@ export default function Features() {
           >
             <div>
               <h3 className="text-headline-md font-headline-md mb-6">
-                Smart Automation, End to End
+                {t.item2Title}
               </h3>
               <p className="opacity-80 text-body-md leading-relaxed">
-                One trigger in DeskHRX ripples through LoopWork automatically.
+                {t.item2Body}
               </p>
             </div>
             <ul className="space-y-6 mt-8 md:mt-12">
@@ -121,25 +102,19 @@ export default function Features() {
                 <span className="material-symbols-outlined text-secondary-fixed-dim">
                   check_circle
                 </span>
-                <span className="font-medium">
-                  HR Onboarding → LoopWork Workflows
-                </span>
+                <span className="font-medium">{t.item2Bullet1}</span>
               </li>
               <li className="flex items-center gap-4">
                 <span className="material-symbols-outlined text-secondary-fixed-dim">
                   check_circle
                 </span>
-                <span className="font-medium">
-                  Payroll Slips + Time-Tracked Tasks
-                </span>
+                <span className="font-medium">{t.item2Bullet2}</span>
               </li>
               <li className="flex items-center gap-4">
                 <span className="material-symbols-outlined text-secondary-fixed-dim">
                   check_circle
                 </span>
-                <span className="font-medium">
-                  Performance Reviews + Project Output
-                </span>
+                <span className="font-medium">{t.item2Bullet3}</span>
               </li>
             </ul>
           </div>
@@ -150,13 +125,13 @@ export default function Features() {
             className="md:col-span-5 glass-card rounded-xl p-6 sm:p-8 md:p-12 flex flex-col border border-outline-variant/50"
           >
             <span className="text-tertiary font-label-caps text-[11px] font-bold uppercase tracking-widest mb-6 block">
-              Process Optimization
+              {t.item3Tag}
             </span>
-            <h3 className="text-headline-md font-headline-md mb-8 text-primary">
-              Every Workflow, Mapped End to End
+            <h3 className="text-headline-md font-headline-md mb-8 text-on-surface">
+              {t.item3Title}
             </h3>
             <ol className="space-y-1">
-              {processSteps.map((step, i) => (
+              {t.processSteps.map((step, i) => (
                 <li
                   key={step.label}
                   className="flex items-center gap-5 py-3 border-b border-outline-variant/30 last:border-b-0"
@@ -164,7 +139,7 @@ export default function Features() {
                   <span className="font-label-caps text-xs text-outline w-6 flex-shrink-0">
                     {String(i + 1).padStart(2, "0")}
                   </span>
-                  <span className="font-medium text-primary flex-grow">
+                  <span className="font-medium text-on-surface flex-grow">
                     {step.label}
                   </span>
                   <span className="font-label-caps text-[10px] uppercase tracking-widest text-on-surface-variant opacity-60">
@@ -190,19 +165,17 @@ export default function Features() {
               </span>
             </div>
             <div>
-              <h3 className="text-headline-md font-headline-md mb-4 text-primary">
-                One Dashboard, Whole Team
+              <h3 className="text-headline-md font-headline-md mb-4 text-on-surface">
+                {t.item4Title}
               </h3>
               <p className="text-on-surface-variant font-medium leading-relaxed">
-                LoopWork&apos;s Kanban, Gantt, and AI workload balancing sit
-                beside DeskHRX&apos;s headcount and capacity data — plan
-                projects around who you actually have available.
+                {t.item4Body}
               </p>
             </div>
           </div>
 
           {/* Bento Items 5-7: DeskHRX-style stat cards */}
-          {statCards.map((card, i) => (
+          {t.statCards.map((card, i) => (
             <div
               key={card.title}
               data-reveal
@@ -210,23 +183,23 @@ export default function Features() {
               className="md:col-span-4 glass-card rounded-xl p-6 sm:p-8 md:p-10 flex flex-col border border-outline-variant/50"
             >
               <div
-                className={`w-14 h-14 rounded-xl flex items-center justify-center mb-8 ${card.iconBg}`}
+                className={`w-14 h-14 rounded-xl flex items-center justify-center mb-8 ${statIcons[i].iconBg}`}
               >
                 <span
-                  className={`material-symbols-outlined text-2xl ${card.iconColor}`}
+                  className={`material-symbols-outlined text-2xl ${statIcons[i].iconColor}`}
                 >
-                  {card.icon}
+                  {statIcons[i].icon}
                 </span>
               </div>
-              <h3 className="text-lg font-headline-md font-bold mb-4 text-primary">
+              <h3 className="text-lg font-headline-md font-bold mb-4 text-on-surface">
                 {card.title}
               </h3>
               <p className="text-sm text-on-surface-variant leading-relaxed mb-10 flex-grow">
                 {card.description}
               </p>
               <div>
-                <div className="text-3xl font-headline-xl font-extrabold text-primary tabular-nums">
-                  {card.stat}
+                <div className="text-3xl font-headline-xl font-extrabold text-on-surface tabular-nums">
+                  {statIcons[i].stat}
                 </div>
                 <div className="font-label-caps text-[10px] uppercase tracking-widest text-on-surface-variant opacity-70">
                   {card.statLabel}
@@ -241,26 +214,24 @@ export default function Features() {
             className="md:col-span-12 glass-card rounded-xl p-6 sm:p-8 md:p-12 flex flex-col md:flex-row gap-8 md:gap-12 items-center border-b-4 border-b-primary/10"
           >
             <div className="flex-1">
-              <h3 className="text-headline-md font-headline-md mb-6 text-primary">
-                Enterprise-Grade Security, Shared Across Both
+              <h3 className="text-headline-md font-headline-md mb-6 text-on-surface">
+                {t.item8Title}
               </h3>
               <p className="text-body-md text-on-surface-variant mb-10 leading-relaxed">
-                SOC 2 Type II certified, GDPR compliant, and 256-bit AES
-                encryption protect your HR records in DeskHRX and your
-                project data in LoopWork under one unified access policy.
+                {t.item8Body}
               </p>
               <div className="flex flex-wrap gap-4">
-                <div className="px-5 py-2.5 bg-primary/5 rounded-lg font-label-caps text-[10px] font-bold text-primary flex items-center gap-3 border border-primary/10">
-                  <span className="material-symbols-outlined text-primary text-lg">
+                <div className="px-5 py-2.5 bg-primary/5 rounded-lg font-label-caps text-[10px] font-bold text-on-surface flex items-center gap-3 border border-primary/10">
+                  <span className="material-symbols-outlined text-on-surface text-lg">
                     security
                   </span>{" "}
-                  256-BIT AES
+                  {t.badge256}
                 </div>
-                <div className="px-5 py-2.5 bg-primary/5 rounded-lg font-label-caps text-[10px] font-bold text-primary flex items-center gap-3 border border-primary/10">
-                  <span className="material-symbols-outlined text-primary text-lg">
+                <div className="px-5 py-2.5 bg-primary/5 rounded-lg font-label-caps text-[10px] font-bold text-on-surface flex items-center gap-3 border border-primary/10">
+                  <span className="material-symbols-outlined text-on-surface text-lg">
                     verified_user
                   </span>{" "}
-                  SOC 2 COMPLIANT
+                  {t.badgeSoc2}
                 </div>
               </div>
             </div>
