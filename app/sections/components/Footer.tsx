@@ -2,45 +2,16 @@
 
 import Image from "next/image";
 import { useState } from "react";
-
-const modalContent: Record<string, { title: string; body: string }> = {
-  about: {
-    title: "About Us",
-    body: "LoopWork + DeskHRX is built for modern enterprises that need workforce management and payroll under one roof. Run either platform on its own, or bundle both for a fully connected HR and project management experience.",
-  },
-  careers: {
-    title: "Careers",
-    body: "We're not hiring publicly right now. Check back soon or reach out via Contact Us if you'd like to get in touch about future opportunities.",
-  },
-  blog: {
-    title: "Blog",
-    body: "Our blog is coming soon. We'll be sharing product updates, HR best practices, and workforce management tips here.",
-  },
-  contact: {
-    title: "Contact Us",
-    body: "Have a question? Reach us anytime and our team will get back to you as soon as possible.",
-  },
-  privacy: {
-    title: "Privacy Policy",
-    body: "We take your data seriously. LoopWork + DeskHRX collects only the information necessary to run our services and never sells your data to third parties.",
-  },
-  terms: {
-    title: "Terms of Service",
-    body: "By using LoopWork + DeskHRX, you agree to use the platform responsibly and in accordance with applicable laws. Full terms will be published here soon.",
-  },
-  cookies: {
-    title: "Cookie Policy",
-    body: "We use cookies to keep you signed in and to understand how our site is used, so we can keep improving it for you.",
-  },
-  support: {
-    title: "Support",
-    body: "Need help? Our support team is available to assist with anything related to LoopWork or DeskHRX.",
-  },
-};
+import { useLanguage } from "../../lib/LanguageContext";
+import { translations } from "../../lib/translations";
 
 export default function Footer() {
   const [activeModal, setActiveModal] = useState<string | null>(null);
-  const active = activeModal ? modalContent[activeModal] : null;
+  const { lang } = useLanguage();
+  const t = translations[lang].footer;
+  const active = activeModal
+    ? t.modalContent[activeModal as keyof typeof t.modalContent]
+    : null;
 
   return (
     <footer className="bg-primary text-white">
@@ -66,9 +37,7 @@ export default function Footer() {
             <span className="text-secondary">DeskHRX</span>
           </div>
           <p className="text-body-md opacity-60 mb-10 max-w-xs leading-relaxed">
-            Enterprise-grade HR, payroll, and project management software
-            designed for modern businesses. Run LoopWork and DeskHRX
-            separately, or bundle both to transform your entire workforce.
+            {t.description}
           </p>
           <div className="flex gap-5">
             <a
@@ -94,7 +63,7 @@ export default function Footer() {
         </div>
         <div className="space-y-6">
           <h4 className="font-bold text-lg mb-8 uppercase tracking-widest text-secondary text-sm">
-            Product
+            {t.product}
           </h4>
           <ul className="space-y-4 opacity-70">
             <li>
@@ -102,7 +71,7 @@ export default function Footer() {
                 className="hover:text-secondary transition-colors font-medium"
                 href="#features"
               >
-                Features
+                {t.features}
               </a>
             </li>
             <li>
@@ -110,7 +79,7 @@ export default function Footer() {
                 className="hover:text-secondary transition-colors font-medium"
                 href="#pricing"
               >
-                Pricing
+                {t.pricing}
               </a>
             </li>
             <li>
@@ -118,7 +87,7 @@ export default function Footer() {
                 className="hover:text-secondary transition-colors font-medium"
                 href="#bundle"
               >
-                The Synergy
+                {t.synergy}
               </a>
             </li>
             <li>
@@ -126,24 +95,23 @@ export default function Footer() {
                 className="hover:text-secondary transition-colors font-medium"
                 href="#about"
               >
-                About
+                {t.about}
               </a>
             </li>
           </ul>
         </div>
         <div className="space-y-6">
           <h4 className="font-bold text-lg mb-8 uppercase tracking-widest text-secondary text-sm">
-            Company
+            {t.company}
           </h4>
           <ul className="space-y-4 opacity-70">
             <li>
-              <button
-                type="button"
+              <a
                 className="hover:text-secondary transition-colors font-medium"
-                onClick={() => setActiveModal("about")}
+                href="#about"
               >
-                About Us
-              </button>
+                {t.aboutUs}
+              </a>
             </li>
             <li>
               <button
@@ -151,7 +119,7 @@ export default function Footer() {
                 className="hover:text-secondary transition-colors font-medium"
                 onClick={() => setActiveModal("careers")}
               >
-                Careers
+                {t.careers}
               </button>
             </li>
             <li>
@@ -160,7 +128,7 @@ export default function Footer() {
                 className="hover:text-secondary transition-colors font-medium"
                 onClick={() => setActiveModal("blog")}
               >
-                Blog
+                {t.blog}
               </button>
             </li>
             <li>
@@ -169,14 +137,14 @@ export default function Footer() {
                 className="hover:text-secondary transition-colors font-medium"
                 onClick={() => setActiveModal("contact")}
               >
-                Contact Us
+                {t.contactUs}
               </button>
             </li>
           </ul>
         </div>
         <div className="space-y-6">
           <h4 className="font-bold text-lg mb-8 uppercase tracking-widest text-secondary text-sm">
-            Legal
+            {t.legal}
           </h4>
           <ul className="space-y-4 opacity-70">
             <li>
@@ -185,7 +153,7 @@ export default function Footer() {
                 className="hover:text-secondary transition-colors font-medium"
                 onClick={() => setActiveModal("privacy")}
               >
-                Privacy Policy
+                {t.privacyPolicy}
               </button>
             </li>
             <li>
@@ -194,7 +162,7 @@ export default function Footer() {
                 className="hover:text-secondary transition-colors font-medium"
                 onClick={() => setActiveModal("terms")}
               >
-                Terms of Service
+                {t.termsOfService}
               </button>
             </li>
             <li>
@@ -203,7 +171,7 @@ export default function Footer() {
                 className="hover:text-secondary transition-colors font-medium"
                 onClick={() => setActiveModal("cookies")}
               >
-                Cookie Policy
+                {t.cookiePolicy}
               </button>
             </li>
             <li>
@@ -212,17 +180,17 @@ export default function Footer() {
                 className="hover:text-secondary transition-colors font-medium"
                 onClick={() => setActiveModal("support")}
               >
-                Support
+                {t.support}
               </button>
             </li>
           </ul>
         </div>
       </div>
       <div className="border-t border-white/5 py-10 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto flex flex-col md:flex-row justify-between items-center text-[11px] font-label-caps tracking-widest opacity-40 uppercase font-bold">
-        <p>© {new Date().getFullYear()} LoopWork + DeskHRX. All rights reserved.</p>
+        <p>© {new Date().getFullYear()} {t.copyright}</p>
         <div className="flex gap-8 mt-6 md:mt-0">
-          <span>English (US)</span>
-          <span>System Status: Optimal</span>
+          <span>{t.language}</span>
+          <span>{t.systemStatus}</span>
         </div>
       </div>
 
@@ -237,12 +205,12 @@ export default function Footer() {
             className="absolute inset-0 bg-black/60 backdrop-blur-sm"
             onClick={() => setActiveModal(null)}
           />
-          <div className="relative bg-white text-primary rounded-xl shadow-2xl max-w-md w-full p-7 sm:p-10">
+          <div className="relative bg-surface text-on-surface rounded-xl shadow-2xl max-w-md w-full p-7 sm:p-10">
             <button
               type="button"
               onClick={() => setActiveModal(null)}
               aria-label="Close"
-              className="absolute top-5 right-5 w-9 h-9 rounded-lg flex items-center justify-center hover:bg-black/5 transition-colors"
+              className="absolute top-5 right-5 w-9 h-9 rounded-lg flex items-center justify-center hover:bg-on-surface/5 transition-colors"
             >
               <span className="material-symbols-outlined text-lg">close</span>
             </button>

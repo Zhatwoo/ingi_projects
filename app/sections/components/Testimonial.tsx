@@ -2,55 +2,28 @@
 
 import Image from "next/image";
 import { useState } from "react";
+import { useLanguage } from "../../lib/LanguageContext";
+import { translations } from "../../lib/translations";
 
-const testimonials = [
-  {
-    quote:
-      "Implementation was seamless, and our team adopted it immediately. The intuitive interface means zero training time and immediate productivity.",
-    name: "Maria Gonzales",
-    role: "HR Director, TechVentures",
-    image:
-      "https://lh3.googleusercontent.com/aida-public/AB6AXuCsI35kOir5nVSnctWYUW2FUzqhtx6Ez0sQ0TFcS7ioMI-bgE6HR32Bw5RTZjZsNYNASZebqTQidv0QJW37yf58kSnwVaSRNm2RCTiOz5Bkqh0TlrELoyGcLaFUxyZsfP1pChMv6RC7u2BtRcJO-PwVxxEQDyhELY3GvSAflEPfo1kd5J-_J5p-ysyk5a8Jxu3lytBNrOzH6MiDqFN_dgZ2Z1J0ONEbYxYSFfCsstjVew_ulJdsx7WLTmdkM8M5lJBDc_L2kvTQzg",
-  },
-  {
-    quote:
-      "Payroll used to take our HR team two full days every cycle. With DeskHRX automating it and LoopWork tracking the hours, it's down to an afternoon.",
-    name: "James Villanueva",
-    role: "Finance Lead, Global Dynamics",
-    image:
-      "https://lh3.googleusercontent.com/aida-public/AB6AXuCJbic3odXbktxTIuuqCdWUBTokxOoEuav3YCqCCakmPhQHksCTOh7kBH5vuyDl3KKSwpkqvnxwpEpIaxsVlXhKuOhe263XWHd4Ifz_CGtqtrEt3IeyKItu51gGO4KipRsCvwsPRz3uYUev2DJGbQsovfDjO4IMmqgpT2Miiei0UFxQrZ-w9EFaFbfZPav3RJOOQZqWHbLdhHMxsCF9FmNvW4K3CFPLRTp1B6mw5LTt3qAViLLaPQLkYGIgz98Ft44D6rUFCk_IGA",
-  },
-  {
-    quote:
-      "The bundle paid for itself in the first month. Having headcount and project workload in the same view changed how we plan sprints entirely.",
-    name: "Andrea Reyes",
-    role: "Operations Manager, Innovate Co.",
-    image:
-      "https://lh3.googleusercontent.com/aida-public/AB6AXuDVdy_VyR0_kG3a_n5uewXn-gPndl1EtzCxNSGY8qUvPi2-Gz0h3VueNmhZv4ljmer4x2VDxane3ndlCvRQ-2I9R4znBLaz0VXe76CGofxOIQC9ZZBW0n3H3moQY-9s7t1moM8UDMftoDOkgReALEGx2_UWEkx6ruJXiMmPw5V6aqSi0gxlY5BqtQKMeZz3WYXwwfyZfWiHxPhtsjJNqrmDiN6e_x4v5pZ2K-GRByb5vTFFradRgEFL4BH_OnWHkUGxKCqzTaz95A",
-  },
-  {
-    quote:
-      "We onboard 30+ new hires a month. LoopWork picking up their first tasks the moment DeskHRX finishes the paperwork has cut our ramp-up time in half.",
-    name: "Carlo Mendoza",
-    role: "People Ops Lead, TechVentures",
-    image:
-      "https://lh3.googleusercontent.com/aida-public/AB6AXuAXI7op6rz2fwGDWtq4LgQOI16H30ByvN4hCmE6Q8P9w_xFmzPxeTHQp8IBVD559maTz_0rGTlHASxBXHC-KVAPg47_HczlryCj3MwIGINxEE28PdwQ4pafMkCcsJ7vM7bFQllUHJPMYaNl9YijZla7Pv0O_uqYLvb3PKB-KAOiRVtOYiw998fvI9dEkj94HH6Lt2Q3NZzPuya09HI_i5_2JaM2WvG0k6YRhBdTJr9aSbm6xmDb4ujM5Jg-5M0bkz2DLnkJ4YLm4Q",
-  },
+const testimonialImages = [
+  "https://lh3.googleusercontent.com/aida-public/AB6AXuCsI35kOir5nVSnctWYUW2FUzqhtx6Ez0sQ0TFcS7ioMI-bgE6HR32Bw5RTZjZsNYNASZebqTQidv0QJW37yf58kSnwVaSRNm2RCTiOz5Bkqh0TlrELoyGcLaFUxyZsfP1pChMv6RC7u2BtRcJO-PwVxxEQDyhELY3GvSAflEPfo1kd5J-_J5p-ysyk5a8Jxu3lytBNrOzH6MiDqFN_dgZ2Z1J0ONEbYxYSFfCsstjVew_ulJdsx7WLTmdkM8M5lJBDc_L2kvTQzg",
+  "https://lh3.googleusercontent.com/aida-public/AB6AXuCJbic3odXbktxTIuuqCdWUBTokxOoEuav3YCqCCakmPhQHksCTOh7kBH5vuyDl3KKSwpkqvnxwpEpIaxsVlXhKuOhe263XWHd4Ifz_CGtqtrEt3IeyKItu51gGO4KipRsCvwsPRz3uYUev2DJGbQsovfDjO4IMmqgpT2Miiei0UFxQrZ-w9EFaFbfZPav3RJOOQZqWHbLdhHMxsCF9FmNvW4K3CFPLRTp1B6mw5LTt3qAViLLaPQLkYGIgz98Ft44D6rUFCk_IGA",
+  "https://lh3.googleusercontent.com/aida-public/AB6AXuDVdy_VyR0_kG3a_n5uewXn-gPndl1EtzCxNSGY8qUvPi2-Gz0h3VueNmhZv4ljmer4x2VDxane3ndlCvRQ-2I9R4znBLaz0VXe76CGofxOIQC9ZZBW0n3H3moQY-9s7t1moM8UDMftoDOkgReALEGx2_UWEkx6ruJXiMmPw5V6aqSi0gxlY5BqtQKMeZz3WYXwwfyZfWiHxPhtsjJNqrmDiN6e_x4v5pZ2K-GRByb5vTFFradRgEFL4BH_OnWHkUGxKCqzTaz95A",
+  "https://lh3.googleusercontent.com/aida-public/AB6AXuAXI7op6rz2fwGDWtq4LgQOI16H30ByvN4hCmE6Q8P9w_xFmzPxeTHQp8IBVD559maTz_0rGTlHASxBXHC-KVAPg47_HczlryCj3MwIGINxEE28PdwQ4pafMkCcsJ7vM7bFQllUHJPMYaNl9YijZla7Pv0O_uqYLvb3PKB-KAOiRVtOYiw998fvI9dEkj94HH6Lt2Q3NZzPuya09HI_i5_2JaM2WvG0k6YRhBdTJr9aSbm6xmDb4ujM5Jg-5M0bkz2DLnkJ4YLm4Q",
 ];
 
 export default function Testimonial() {
   const [index, setIndex] = useState(0);
-  const active = testimonials[index];
+  const { lang } = useLanguage();
+  const t = translations[lang].testimonial;
+  const active = t.testimonials[index];
 
   const goPrev = () =>
-    setIndex((i) => (i - 1 + testimonials.length) % testimonials.length);
-  const goNext = () => setIndex((i) => (i + 1) % testimonials.length);
+    setIndex((i) => (i - 1 + t.testimonials.length) % t.testimonials.length);
+  const goNext = () => setIndex((i) => (i + 1) % t.testimonials.length);
 
   return (
-    <section
-      id="about"
-      className="py-20 md:py-section-padding px-margin-mobile md:px-margin-desktop overflow-hidden bg-surface relative"
-    >
+    <section className="py-20 md:py-section-padding px-margin-mobile md:px-margin-desktop overflow-hidden bg-surface relative">
       <div
         data-parallax="0.04"
         className="absolute top-0 -right-20 w-80 h-80 bg-secondary/5 rounded-full blur-[100px] pointer-events-none"
@@ -63,15 +36,15 @@ export default function Testimonial() {
         <div className="flex flex-col md:flex-row items-center gap-12 md:gap-20">
           <div className="md:w-1/3">
             <span className="text-secondary font-bold uppercase tracking-[0.2em] text-[11px] font-label-caps">
-              Client Success
+              {t.tag}
             </span>
-            <h2 className="text-3xl md:text-headline-xl font-headline-xl mt-6 mb-8 text-primary leading-tight">
-              Hear from our <span className="text-secondary">happy</span>{" "}
-              clients
+            <h2 className="text-3xl md:text-headline-xl font-headline-xl mt-6 mb-8 text-on-surface leading-tight">
+              {t.headingPre}{" "}
+              <span className="text-secondary">{t.headingEmphasis}</span>{" "}
+              {t.headingPost}
             </h2>
             <p className="text-lg text-on-surface-variant leading-relaxed mb-12">
-              Real stories from modern enterprises achieving unprecedented
-              results with the bundle.
+              {t.subheading}
             </p>
             <div className="flex items-center gap-5">
               <button
@@ -93,9 +66,9 @@ export default function Testimonial() {
                 </span>
               </button>
               <div className="flex gap-2 ml-2">
-                {testimonials.map((t, i) => (
+                {t.testimonials.map((item, i) => (
                   <button
-                    key={t.name}
+                    key={item.name}
                     onClick={() => setIndex(i)}
                     aria-label={`Go to testimonial ${i + 1}`}
                     className={`h-2 rounded-full transition-all duration-300 ${
@@ -113,7 +86,7 @@ export default function Testimonial() {
               key={index}
               className="glass-card p-8 sm:p-10 md:p-16 rounded-xl relative border-l-8 border-l-secondary shadow-2xl animate-testimonial-in"
             >
-              <span className="material-symbols-outlined text-[120px] absolute -top-4 -right-2 text-primary opacity-[0.03]">
+              <span className="material-symbols-outlined text-[120px] absolute -top-4 -right-2 text-on-surface opacity-[0.03]">
                 format_quote
               </span>
               <div className="flex gap-1.5 mb-10">
@@ -127,7 +100,7 @@ export default function Testimonial() {
                   </span>
                 ))}
               </div>
-              <blockquote className="text-xl md:text-3xl font-headline-md mb-8 md:mb-12 text-primary leading-snug italic">
+              <blockquote className="text-xl md:text-3xl font-headline-md mb-8 md:mb-12 text-on-surface leading-snug italic">
                 &quot;{active.quote}&quot;
               </blockquote>
               <div className="flex items-center gap-6">
@@ -137,11 +110,11 @@ export default function Testimonial() {
                     alt={`${active.name} - ${active.role}`}
                     width={80}
                     height={80}
-                    src={active.image}
+                    src={testimonialImages[index]}
                   />
                 </div>
                 <div>
-                  <p className="font-bold text-2xl text-primary">
+                  <p className="font-bold text-2xl text-on-surface">
                     {active.name}
                   </p>
                   <p className="text-on-surface-variant font-medium tracking-wide">

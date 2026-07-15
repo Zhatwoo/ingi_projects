@@ -2,21 +2,27 @@
 
 import Image from "next/image";
 import { useState } from "react";
-
-const navLinks = [
-  { href: "#features", label: "Features" },
-  { href: "#bundle", label: "The Synergy" },
-  { href: "#pricing", label: "Pricing" },
-  { href: "#about", label: "About" },
-];
+import ThemeToggle from "./ThemeToggle";
+import LanguageToggle from "./LanguageToggle";
+import { useLanguage } from "../../lib/LanguageContext";
+import { translations } from "../../lib/translations";
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const { lang } = useLanguage();
+  const t = translations[lang].header;
+
+  const navLinks = [
+    { href: "#features", label: t.nav.features },
+    { href: "#bundle", label: t.nav.synergy },
+    { href: "#pricing", label: t.nav.pricing },
+    { href: "#about", label: t.nav.about },
+  ];
 
   return (
     <header className="bg-surface/80 backdrop-blur-lg border-b border-outline-variant/30 sticky top-0 z-50 w-full">
       <div className="flex justify-between items-center px-margin-mobile md:px-margin-desktop py-4 md:py-5 max-w-container-max mx-auto">
-        <div className="text-base sm:text-xl font-headline-xl font-extrabold text-primary flex items-center gap-1.5 sm:gap-2 flex-wrap">
+        <div className="text-base sm:text-xl font-headline-xl font-extrabold text-on-surface flex items-center gap-1.5 sm:gap-2 flex-wrap">
           <Image
             src="/loopwork-logo.png"
             alt="LoopWork"
@@ -47,12 +53,14 @@ export default function Header() {
           ))}
         </nav>
         <div className="flex items-center gap-3 md:gap-6">
+          <LanguageToggle />
+          <ThemeToggle />
           <button className="hidden sm:inline-flex bg-secondary text-white px-5 md:px-7 py-2 md:py-2.5 rounded-lg font-bold hover:brightness-110 transition-all shadow-sm text-sm md:text-base">
-            Start Free Trial
+            {t.startTrial}
           </button>
           <button
             type="button"
-            className="md:hidden w-10 h-10 flex items-center justify-center rounded-lg text-primary hover:bg-primary/5 transition-colors"
+            className="md:hidden w-10 h-10 flex items-center justify-center rounded-lg text-on-surface hover:bg-on-surface/5 transition-colors"
             aria-label={menuOpen ? "Close menu" : "Open menu"}
             aria-expanded={menuOpen}
             onClick={() => setMenuOpen((open) => !open)}
@@ -79,7 +87,7 @@ export default function Header() {
             ))}
           </nav>
           <button className="w-full bg-secondary text-white px-7 py-3 rounded-lg font-bold hover:brightness-110 transition-all shadow-sm">
-            Start Free Trial
+            {t.startTrial}
           </button>
         </div>
       )}

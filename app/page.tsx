@@ -3,6 +3,7 @@ import Hero from "./sections/components/Hero";
 import Features from "./sections/components/Features";
 import StatsStrip from "./sections/components/StatsStrip";
 import BundleShowcase from "./sections/components/BundleShowcase";
+import About from "./sections/components/About";
 import Testimonial from "./sections/components/Testimonial";
 import Pricing from "./sections/components/Pricing";
 import Faq from "./sections/components/Faq";
@@ -18,6 +19,7 @@ export default function Home() {
       <Features />
       <StatsStrip />
       <BundleShowcase />
+      <About />
       <Testimonial />
       <Pricing />
       <Faq />

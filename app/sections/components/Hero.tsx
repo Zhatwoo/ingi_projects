@@ -1,6 +1,13 @@
+"use client";
+
 import Image from "next/image";
+import { useLanguage } from "../../lib/LanguageContext";
+import { translations } from "../../lib/translations";
 
 export default function Hero() {
+  const { lang } = useLanguage();
+  const t = translations[lang].hero;
+
   return (
     <section className="relative pt-16 pb-20 md:pt-24 md:pb-40 overflow-hidden px-margin-mobile md:px-margin-desktop bg-primary mesh-bg-dark text-white">
       <div
@@ -22,20 +29,15 @@ export default function Hero() {
             <div className="inline-flex items-center gap-3 py-2 px-5 rounded-full bg-white/5 border border-white/10 mb-10">
               <span className="w-2 h-2 rounded-full bg-secondary animate-pulse" />
               <span className="font-label-caps text-[11px] tracking-widest text-secondary-fixed-dim uppercase">
-                Unified HR &amp; Workflow Powerhouse
+                {t.badge}
               </span>
             </div>
             <h1 className="text-4xl sm:text-5xl md:text-display-lg font-headline-xl mb-8 leading-[1.1]">
-              Run payroll and projects{" "}
-              <span className="text-secondary italic">
-                without switching tabs
-              </span>
+              {t.titleLine1}{" "}
+              <span className="text-secondary italic">{t.titleEmphasis}</span>
             </h1>
             <p className="text-lg md:text-xl font-body-md text-white/70 mb-12 max-w-xl leading-relaxed">
-              DeskHRX handles HR, payroll, and compliance. LoopWork handles
-              Kanban, Gantt, and workload planning. Buy either on its own, or
-              bundle both and let a new hire&apos;s first day trigger their
-              first project task automatically.
+              {t.description}
             </p>
             <div className="flex flex-wrap gap-5">
               <a
@@ -44,7 +46,7 @@ export default function Hero() {
                 rel="noopener noreferrer"
                 className="bg-[#1e3a8a] text-white px-10 py-5 rounded-lg font-black flex items-center gap-3 hover:scale-105 transition-all shadow-2xl group"
               >
-                Go to LoopWork{" "}
+                {t.goToLoopWork}{" "}
                 <span className="material-symbols-outlined group-hover:translate-x-1 transition-transform">
                   arrow_forward
                 </span>
@@ -55,7 +57,7 @@ export default function Hero() {
                 rel="noopener noreferrer"
                 className="bg-secondary text-primary px-10 py-5 rounded-lg font-black flex items-center gap-3 hover:scale-105 transition-all shadow-2xl glow-secondary group"
               >
-                Go to DeskHRX{" "}
+                {t.goToDeskHRX}{" "}
                 <span className="material-symbols-outlined group-hover:translate-x-1 transition-transform">
                   arrow_forward
                 </span>
@@ -94,13 +96,13 @@ export default function Hero() {
                     </span>
                   </div>
                   <span className="font-bold uppercase tracking-widest text-xs">
-                    Efficiency Gain
+                    {t.efficiencyGain}
                   </span>
                 </div>
                 <p className="text-sm text-white/60">
-                  New hire onboarded in DeskHRX, first task auto-assigned in{" "}
-                  <span className="text-secondary font-bold">LoopWork</span> —
-                  same minute.
+                  {t.efficiencyText1}{" "}
+                  <span className="text-secondary font-bold">LoopWork</span>{" "}
+                  {t.efficiencyText2}
                 </p>
               </div>
             </div>

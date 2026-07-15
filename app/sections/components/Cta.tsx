@@ -2,12 +2,16 @@
 
 import Image from "next/image";
 import { useState, type FormEvent } from "react";
+import { useLanguage } from "../../lib/LanguageContext";
+import { translations } from "../../lib/translations";
 
 export default function Cta() {
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">(
     "idle"
   );
+  const { lang } = useLanguage();
+  const t = translations[lang].cta;
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -31,17 +35,17 @@ export default function Cta() {
   return (
     <section className="py-20 md:py-section-padding px-margin-mobile md:px-margin-desktop relative bg-surface overflow-hidden">
       <div className="max-w-container-max mx-auto text-center z-10 relative" data-reveal>
-        <h2 className="text-3xl sm:text-4xl md:text-display-lg font-headline-xl mb-12 leading-[1.1] text-primary">
-          Stop paying for two <br />
-          <span className="text-gradient">disconnected systems.</span>
+        <h2 className="text-3xl sm:text-4xl md:text-display-lg font-headline-xl mb-12 leading-[1.1] text-on-surface">
+          {t.headingLine1} <br />
+          <span className="text-gradient">{t.headingEmphasis}</span>
         </h2>
         <div className="flex flex-col items-center gap-6">
           {status === "success" ? (
-            <div className="flex items-center gap-3 bg-primary/5 border border-primary/10 text-primary px-8 py-4 rounded-xl font-bold max-w-md">
+            <div className="flex items-center gap-3 bg-primary/5 border border-primary/10 text-on-surface px-8 py-4 rounded-xl font-bold max-w-md">
               <span className="material-symbols-outlined text-secondary">
                 check_circle
               </span>
-              Thanks! We&apos;ll reach out to your inbox shortly.
+              {t.successMessage}
             </div>
           ) : (
             <form
@@ -50,7 +54,7 @@ export default function Cta() {
               noValidate
             >
               <label htmlFor="cta-email" className="sr-only">
-                Work email
+                {t.emailLabel}
               </label>
               <input
                 id="cta-email"
@@ -58,23 +62,21 @@ export default function Cta() {
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder="you@company.com"
-                className="flex-1 px-6 py-4 md:py-5 rounded-xl border border-outline-variant bg-white text-on-surface font-medium placeholder:text-on-surface-variant/60 focus:outline-none focus:ring-2 focus:ring-secondary"
+                placeholder={t.emailPlaceholder}
+                className="flex-1 px-6 py-4 md:py-5 rounded-xl border border-outline-variant bg-surface text-on-surface font-medium placeholder:text-on-surface-variant/60 focus:outline-none focus:ring-2 focus:ring-secondary"
               />
               <button
                 type="submit"
                 disabled={status === "submitting"}
                 className="bg-secondary text-white px-8 py-4 md:px-12 md:py-5 rounded-xl text-base md:text-lg font-extrabold hover:scale-105 hover:shadow-2xl active:scale-95 transition-all shadow-xl border-b-4 border-b-black/20 disabled:opacity-60 disabled:hover:scale-100 whitespace-nowrap"
               >
-                {status === "submitting"
-                  ? "Sending..."
-                  : "START YOUR 2-MONTH TRIAL"}
+                {status === "submitting" ? t.sending : t.submit}
               </button>
             </form>
           )}
           {status === "error" && (
             <p className="text-error font-medium text-sm">
-              Something went wrong. Please try again.
+              {t.errorMessage}
             </p>
           )}
           <div className="flex items-center gap-4">
@@ -107,7 +109,7 @@ export default function Cta() {
           </div>
         </div>
         <p className="mt-8 text-on-surface-variant font-semibold uppercase tracking-widest text-sm opacity-60">
-          Join 500+ enterprises scaling their workforce with ease.
+          {t.joinText}
         </p>
       </div>
       {/* Decorative blobs */}
